@@ -23,6 +23,7 @@ class Users(db.Model):
     p23 = db.Column(db.String(200), default="")
     p24 = db.Column(db.String(200), default="")
     p31 = db.Column(db.String(200), default="")
+    p32 = db.Column(db.String(200), default="")
     don = db.Column(db.Integer, default=0)
 
 
@@ -80,10 +81,17 @@ def phase1():
 @app.route("/phase2", methods=["POST", "GET"])
 def phase2():
     if "user" in session:
+        data = Users()
+        data = Users.query.filter_by(mail=session["user"]).first()
         if request.method=="POST":
+            data.p21=request.form["p21"]
+            data.p22=request.form["p22"]
+            data.p23=request.form["p23"]
+            data.p24=request.form["p24"]
+            db.session.commit()
             return redirect(url_for("phase3"))
         else:
-            return render_template("phase2.html")
+            return render_template("phase2.html", pp1=data.p21, pp2=data.p22, pp3=data.p23, pp4=data.p24)
     else:
         return redirect(url_for("login"))
     
@@ -92,10 +100,15 @@ def phase2():
 @app.route("/phase3", methods=["POST", "GET"])
 def phase3():
     if "user" in session:
+        data = Users()
+        data = Users.query.filter_by(mail=session["user"]).first()
         if request.method=="POST":
+            data.p31=request.form["p31"]
+            data.p32=request.form["p32"]
+            db.session.commit()
             return redirect(url_for("logout"))
         else:
-            return render_template("phase3.html")
+            return render_template("phase3.html", pp1=data.p31, pp2=data.p32)
     else:
         return redirect(url_for("login"))
 

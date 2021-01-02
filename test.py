@@ -48,7 +48,7 @@ def login():
         data = Users.query.filter_by(mail=user).first()
         if (data and data.password==password):
             session["user"]=user
-            return redirect(url_for("phase1"))
+            return redirect(url_for("choice"))
         else:
             return render_template("login.html", rem="Invalid Email ID or Password. Please contact Aki")
     else: 
@@ -56,6 +56,13 @@ def login():
             return redirect(url_for("phase1"))
         return render_template("login.html")
 
+#route choice
+@app.route("/choice", methods=["PSOT","GET"])
+def choice():
+    if "user" in session:
+        return render_template("choice.html")
+    else:
+        return redirect(url_for("login"))
 
 
 #phase 1 stuff
@@ -70,7 +77,10 @@ def phase1():
             data.p13=request.form["p13"]
             data.p14=request.form["p14"]
             db.session.commit()
-            return redirect(url_for("phase2"))
+            if request.form["savedirec"]== "Save":
+                return redirect(url_for("phase2"))
+            else:
+                return redirect(url_for("choice"))
         else:
             return render_template("phase1.html", pp1=data.p11, pp2=data.p12, pp3=data.p13, pp4=data.p14)
     else:
@@ -89,7 +99,10 @@ def phase2():
             data.p23=request.form["p23"]
             data.p24=request.form["p24"]
             db.session.commit()
-            return redirect(url_for("phase3"))
+            if request.form["savedirec"]== "Save":
+                return redirect(url_for("phase3"))
+            else:
+                return redirect(url_for("phase1"))
         else:
             return render_template("phase2.html", pp1=data.p21, pp2=data.p22, pp3=data.p23, pp4=data.p24)
     else:
@@ -106,7 +119,10 @@ def phase3():
             data.p31=request.form["p31"]
             data.p32=request.form["p32"]
             db.session.commit()
-            return redirect(url_for("logout"))
+            if request.form["savedirec"]== "Save":
+                return redirect(url_for("logout"))
+            else:
+                return redirect(url_for("phase2"))
         else:
             return render_template("phase3.html", pp1=data.p31, pp2=data.p32)
     else:

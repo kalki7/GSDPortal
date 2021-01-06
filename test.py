@@ -24,6 +24,10 @@ class Users(db.Model):
     p24 = db.Column(db.String(200), default="")
     p31 = db.Column(db.String(200), default="")
     p32 = db.Column(db.String(200), default="")
+    e1 = db.Column(db.String(500), default="")
+    e2 = db.Column(db.String(500), default="")
+    e3 = db.Column(db.String(500), default="")
+    e4 = db.Column(db.String(200), default="")
     don = db.Column(db.Integer, default=0)
 
 
@@ -57,12 +61,50 @@ def login():
         return render_template("login.html")
 
 #route choice
-@app.route("/choice", methods=["PSOT","GET"])
+@app.route("/choice")
 def choice():
     if "user" in session:
         return render_template("choice.html")
     else:
         return redirect(url_for("login"))
+
+#ecg primary
+@app.route("/ecg", methods=["POST", "GET"])
+def ecg():
+    if "user" in session:
+        data = Users()
+        data = Users.query.filter_by(mail=session["user"]).first()
+        if request.method=="POST":
+            data.e1=request.form["e1"]
+            data.e2=request.form["e2"]
+            data.e3=request.form["e3"]
+            db.session.commit()
+            if request.form["savedirec"]== "Save":
+                return redirect(url_for("topecg"))
+            else:
+                return redirect(url_for("choice"))
+        else:
+            return render_template("ecg.html", pp1=data.e1, pp2=data.e2, pp3=data.e3)
+    else:
+        return redirect(url_for("login"))
+
+#top ecg entry
+@app.route("/topecg", methods=["POST", "GET"])
+def topecg():
+    if "user" in session:
+        data = Users()
+        data = Users.query.filter_by(mail=session["user"]).first()
+        if request.method=="POST":
+            data.e4=request.form["e4"]
+            db.session.commit()
+            if request.form["savedirec"]== "Save":
+                return redirect(url_for("logout"))
+            else:
+                return redirect(url_for("ecg"))
+        else:
+            return render_template("topecg.html", pp1=data.e4)
+
+
 
 
 #phase 1 stuff

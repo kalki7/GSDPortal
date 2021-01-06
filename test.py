@@ -41,24 +41,24 @@ def newuser(email,passw):
 
 
 
-#login stuff
+#index stuff
 @app.route("/", methods=["POST","GET"])
-def login():
+def index():
     if request.method=="POST":
         user = request.form["id"]
         password = request.form["pwd"]
-        #login check here
+        #index check here
         data = Users()
         data = Users.query.filter_by(mail=user).first()
         if (data and data.password==password):
             session["user"]=user
             return redirect(url_for("choice"))
         else:
-            return render_template("login.html", rem="Invalid Email ID or Password. Please contact Aki")
+            return render_template("index.html", rem="Invalid Email ID or Password. Please contact Aki")
     else: 
         if "user" in session:
             return redirect(url_for("phase1"))
-        return render_template("login.html")
+        return render_template("index.html")
 
 #route choice
 @app.route("/choice")
@@ -66,7 +66,7 @@ def choice():
     if "user" in session:
         return render_template("choice.html")
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
 #ecg primary
 @app.route("/ecg", methods=["POST", "GET"])
@@ -86,7 +86,7 @@ def ecg():
         else:
             return render_template("ecg.html", pp1=data.e1, pp2=data.e2, pp3=data.e3)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
 #top ecg entry
 @app.route("/topecg", methods=["POST", "GET"])
@@ -126,7 +126,7 @@ def phase1():
         else:
             return render_template("phase1.html", pp1=data.p11, pp2=data.p12, pp3=data.p13, pp4=data.p14)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
 
 #phase 2 stuff
@@ -148,7 +148,7 @@ def phase2():
         else:
             return render_template("phase2.html", pp1=data.p21, pp2=data.p22, pp3=data.p23, pp4=data.p24)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
     
 
 #phase3 stuff
@@ -168,14 +168,14 @@ def phase3():
         else:
             return render_template("phase3.html", pp1=data.p31, pp2=data.p32)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
 
-#loging out takes you back to login
+#indexg out takes you back to index
 @app.route("/logout")
 def logout():
     session.pop("user", None)
-    return redirect(url_for("login"))
+    return redirect(url_for("index"))
 
 
 if __name__ == "__main__":

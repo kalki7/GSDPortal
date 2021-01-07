@@ -1,19 +1,63 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>GSD-Akigai</title>
-    </head>
-    <body>
-        <h1>Phase 2</h1>
-        <h3>In this phase, let’s get serious with respect to prioritising your options. 
-            We’ll be taking it up a notch and seeing how your individual cores get along with each other under certain real world conditions.<br/>
-            Again, <strong>THERE IS NO WRONG ANSWER.</strong> </h3>
-        <form action="#" method="POST">
-            <p>Find your Passion:</p><textarea name="p21" id="p21" cols="30" rows="10">{{pp1}}</textarea><br/>
-            <p>Define your Mission:</p><textarea name="p22" id="p22" cols="30" rows="10">{{pp2}}</textarea><br/>
-            <p>Understand your Vocation:</p><textarea name="p23" id="p23" cols="30" rows="10">{{pp3}}</textarea><br/>
-            <p>Finalise your Profession:</p><textarea name="p24" id="p24" cols="30" rows="10">{{pp4}}</textarea><br/>
-            <input type="submit" name="savedirec" value="Back"/>
-            <input type="submit" name="savedirec" value="Save"/>
-        </form>
-    </body>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>aki</title>
+    <link rel="stylesheet" href="static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="static/assets/css/styles.min.css">
+</head>
+
+<body>
+    <div class="container" style="max-width: 1920px;padding-left: 250px;padding-right: 250px;margin-top: 30px;margin-bottom: 10px;">
+        <div class="row" style="margin-right: 0px;margin-left: 0px;margin-bottom: 0px;">
+            <div class="col"><img src="static/assets/img/Logo_Horizontal@3x.png"></div>
+        </div>
+        <form action="#" method="post">
+            <div class="form-row text-center" style="margin-right: 0px;margin-left: 0px;margin-bottom: 0px;margin-top: 40px;">
+                <div class="col"><button class="btn btn-dark btn-lg text-center text-dark bg-light shadow" type="submit" style="width: 354px;height: 82px;margin: 5px;" name="savedirec" value="phase1">Phase 1</button></div>
+                <div class="col"><button class="btn btn-dark active btn-lg text-center text-light shadow" type="button" style="width: 354px;height: 82px;margin: 5px;">Phase 2</button></div>
+                <div class="col"><button class="btn btn-dark btn-lg text-center text-dark bg-light shadow" type="submit" style="width: 354px;height: 82px;margin: 5px;" name="savedirec" value="phase3">Phase 3</button></div>
+            </div>
+            <div class="form-row text-center" style="margin-right: 0px;margin-left: 0px;margin-bottom: 20px;margin-top: 25px;">
+                <div class="col text-left">
+                    <p style="padding-left: 55px;">Prioritise options...</p>
+                </div>
+            </div>
+            <div class="form-row" style="margin-bottom: 0px;margin-left: 51px;margin-top: -40px;">
+                <div class="col" style="margin-top: 0px;"><textarea class="border rounded form-control form-control-lg" name="p21" style="width: 617px;height: 237px;margin-top: 45px;" autocomplete="on" spellcheck="true" required="" minlength="5" placeholder="Find your Passion">{{pp1}}</textarea></div>
+                <div
+                    class="col" style="margin-top: 45px;"><textarea class="border rounded form-control form-control-lg" name="p22" style="width: 617px;height: 237px;" autocomplete="on" spellcheck="true" required="" minlength="5" placeholder="Define your Mission">{{pp2}}</textarea></div>
+    </div>
+    <div class="form-row" style="margin-bottom: 0px;margin-left: 51px;">
+        <div class="col" style="margin-top: 45px;"><textarea class="border rounded form-control form-control-lg" name="p23" style="width: 617px;height: 237px;" autocomplete="on" spellcheck="true" required="" minlength="5" placeholder="Understand your Vocation">{{pp3}}</textarea></div>
+        <div class="col"
+            style="margin-top: 45px;"><textarea class="border rounded form-control form-control-lg" name="p24" style="width: 617px;height: 237px;" autocomplete="on" spellcheck="true" required="" minlength="5" placeholder="Probe your Profession">{{pp4}}</textarea></div>
+    </div>
+    <div class="form-row" style="margin-bottom: 15px;">
+        <div class="col text-left" style="margin-top: 45px;padding-right: 0px;padding-left: 62px;"><button class="btn btn-secondary btn-lg text-uppercase text-center text-dark bg-light shadow" type="submit" style="width: 209px;height: 50px;" name="savedirec" value="ecg">ECG</button></div>
+        <div class="col text-right" style="margin-top: 45px;padding-right: 62px;"><button class="btn btn-secondary btn-lg text-uppercase text-center text-dark bg-light shadow" type="submit" style="width: 209px;height: 50px;" name="savedirec" value="log">Logout</button></div>
+    </div>
+    </form>
+    </div>
+    <div class="footer-basic">
+        <footer>
+            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-linkedin-outline"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
+            <ul
+                class="list-inline">
+                <li class="list-inline-item"><a href="#">Home</a></li>
+                <li class="list-inline-item"><a href="#">Services</a></li>
+                <li class="list-inline-item"><a href="#">About</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                </ul>
+                <p class="copyright">Rodin Jack x Get Shit Done © 2021</p>
+        </footer>
+    </div>
+    <script src="static/assets/js/jquery.min.js"></script>
+    <script src="static/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
 </html>

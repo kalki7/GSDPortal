@@ -54,7 +54,7 @@ def index():
             session["user"]=user
             return redirect(url_for("choice"))
         else:
-            return render_template("index.html", rem="Invalid Email ID or Password. Please contact Aki")
+            return render_template("index.html", rem="Incorrect Email or Password")
     else: 
         if "user" in session:
             return redirect(url_for("phase1"))
@@ -79,10 +79,12 @@ def ecg():
             data.e2=request.form["e2"]
             data.e3=request.form["e3"]
             db.session.commit()
-            if request.form["savedirec"]== "Save":
+            if request.form["savedirec"]== "phase2":
                 return redirect(url_for("topecg"))
+            elif request.form["savedirec"]== "ikigai":
+                return redirect(url_for("phase1"))
             else:
-                return redirect(url_for("choice"))
+                return redirect(url_for("logout"))
         else:
             return render_template("ecg.html", pp1=data.e1, pp2=data.e2, pp3=data.e3)
     else:
@@ -97,12 +99,16 @@ def topecg():
         if request.method=="POST":
             data.e4=request.form["e4"]
             db.session.commit()
-            if request.form["savedirec"]== "Save":
-                return redirect(url_for("logout"))
-            else:
+            if request.form["savedirec"]== "phase1":
                 return redirect(url_for("ecg"))
+            elif request.form["savedirec"]== "ikigai":
+                return redirect(url_for("phase1"))
+            else:
+                return redirect(url_for("logout"))
         else:
             return render_template("topecg.html", pp1=data.e4)
+    else:
+        return redirect(url_for("index"))
 
 
 
@@ -119,10 +125,14 @@ def phase1():
             data.p13=request.form["p13"]
             data.p14=request.form["p14"]
             db.session.commit()
-            if request.form["savedirec"]== "Save":
+            if request.form["savedirec"]== "phase2":
                 return redirect(url_for("phase2"))
+            elif request.form["savedirec"]== "phase3":
+                return redirect(url_for("phase3"))
+            elif request.form["savedirec"]== "ecg":
+                return redirect(url_for("ecg"))
             else:
-                return redirect(url_for("choice"))
+                return redirect(url_for("logout"))
         else:
             return render_template("phase1.html", pp1=data.p11, pp2=data.p12, pp3=data.p13, pp4=data.p14)
     else:
@@ -141,10 +151,14 @@ def phase2():
             data.p23=request.form["p23"]
             data.p24=request.form["p24"]
             db.session.commit()
-            if request.form["savedirec"]== "Save":
-                return redirect(url_for("phase3"))
-            else:
+            if request.form["savedirec"]== "phase1":
                 return redirect(url_for("phase1"))
+            elif request.form["savedirec"]== "phase3":
+                return redirect(url_for("phase3"))
+            elif request.form["savedirec"]== "ecg":
+                return redirect(url_for("ecg"))
+            else:
+                return redirect(url_for("logout"))
         else:
             return render_template("phase2.html", pp1=data.p21, pp2=data.p22, pp3=data.p23, pp4=data.p24)
     else:
@@ -161,10 +175,14 @@ def phase3():
             data.p31=request.form["p31"]
             data.p32=request.form["p32"]
             db.session.commit()
-            if request.form["savedirec"]== "Save":
-                return redirect(url_for("logout"))
-            else:
+            if request.form["savedirec"]== "phase2":
                 return redirect(url_for("phase2"))
+            elif request.form["savedirec"]== "phase1":
+                return redirect(url_for("phase1"))
+            elif request.form["savedirec"]== "ecg":
+                return redirect(url_for("ecg"))
+            else:
+                return redirect(url_for("logout"))
         else:
             return render_template("phase3.html", pp1=data.p31, pp2=data.p32)
     else:

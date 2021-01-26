@@ -5,15 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>aki</title>
-    <link rel="stylesheet" href="static/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="static/assets/css/styles.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/ionicons.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.min.css')}}">
 </head>
 
 <body>
     <div class="container" style="max-width: 1920px;padding-left: 250px;padding-right: 250px;margin-top: 30px;margin-bottom: 10px;">
         <div class="row" style="margin-right: 0px;margin-left: 0px;margin-bottom: 0px;">
-            <div class="col"><img src="static/assets/img/Logo_Horizontal@3x.png"></div>
+            <div class="col"><img src="{{ url_for('static', filename='assets/img/Logo_Horizontal@3x.png')}}"></div>
         </div>
         <form action="#" method="post">
             <div class="form-row text-center" style="margin-right: 0px;margin-left: 0px;margin-bottom: 0px;margin-top: 40px;">
@@ -51,8 +51,8 @@
                 <p class="copyright">Rodin Jack x Get Shit Done © 2021</p>
         </footer>
     </div>
-    <script src="static/assets/js/jquery.min.js"></script>
-    <script src="static/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
 
 </html>

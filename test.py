@@ -32,7 +32,7 @@ class Users(db.Model):
 
 
 #new user registration, shit
-@app.route("/rodin/<email>/<passw>")
+@app.route("/rodin/create/<email>/<passw>")
 def newuser(email,passw):
     user = Users(mail=email, password=passw)
     db.session.add(user)
@@ -49,6 +49,10 @@ def index():
         password = request.form["pwd"]
         #index check here
         data = Users()
+        if(user=="rodinjack@gmail.com" and password=="akigai1@"): #superuser details hardcoded
+            session["user"]=user
+            return redirect(url_for("supes"))
+
         data = Users.query.filter_by(mail=user).first()
         if (data and data.password==password):
             session["user"]=user
@@ -59,6 +63,22 @@ def index():
         if "user" in session:
             return redirect(url_for("phase1"))
         return render_template("index.html")
+
+#search content for super user
+@app.route("/rodin", methods=["POST","GET"])
+def supes():
+    if request.method=="POST":
+        if request.form["savedirec"]== "search":
+            used = request.form["mail"]
+            data = Users()
+            data = Users.query.filter_by(mail=used).first()
+            if data:
+                return render_template("supes.html", p11=data.p11, p12=data.p12, p13=data.p13, p14=data.p14, p21=data.p21, p22=data.p22, p23=data.p23, p24=data.p24, p31=data.p31, p32=data.p32, e1=data.e1, e2=data.e2, e3=data.e3, e4=data.e4)
+            else:
+                return redirect(url_for("logout"))
+    else:
+        return render_template("supes.html")
+
 
 #route choice
 @app.route("/choice")

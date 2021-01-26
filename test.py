@@ -50,7 +50,7 @@ def index():
         #index check here
         data = Users()
         if(user=="rodinjack@gmail.com" and password=="akigai1@"): #superuser details hardcoded
-            session["user"]=user
+            session["supes"]=user
             return redirect(url_for("supes"))
 
         data = Users.query.filter_by(mail=user).first()
@@ -74,10 +74,28 @@ def supes():
             data = Users.query.filter_by(mail=used).first()
             if data:
                 return render_template("supes.html", p11=data.p11, p12=data.p12, p13=data.p13, p14=data.p14, p21=data.p21, p22=data.p22, p23=data.p23, p24=data.p24, p31=data.p31, p32=data.p32, e1=data.e1, e2=data.e2, e3=data.e3, e4=data.e4)
-            else:
-                return redirect(url_for("logout"))
+        else:
+            return redirect(url_for("logout"))
     else:
-        return render_template("supes.html")
+        if "supes" in session:
+            return render_template("supes.html")
+        else:
+            return(redirect(url_for("index")))
+
+
+@app.route("/rodin/all")
+def showall():
+    if "supes" in session:
+        data = Users()
+        data = Users.query.all()
+        datab = "<html><head><title>aki</title></head><body>"
+        for user in data:
+            datab = datab+user.mail+"&ensp;"+user.p32+"&ensp;"+user.e4+"<br>"
+        datab = datab+"</body></html>"
+        return datab
+    else:
+        return redirect(url_for("index"))
+
 
 
 #route choice

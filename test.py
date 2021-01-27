@@ -70,34 +70,31 @@ def supes():
     if request.method=="POST":
         if request.form["savedirec"]== "search":
             used = request.form["mail"]
-            data = Users()
-            data = Users.query.filter_by(mail=used).first()
-            if data:
-                return render_template("supes.html", p11=data.p11, p12=data.p12, p13=data.p13, p14=data.p14, p21=data.p21, p22=data.p22, p23=data.p23, p24=data.p24, p31=data.p31, p32=data.p32, e1=data.e1, e2=data.e2, e3=data.e3, e4=data.e4)
+            if used:
+                data = Users()
+                data = Users.query.filter_by(mail=used).first()
+                datab = [[data.mail,data.p32,data.e4]]
+                content = "<h3>Phase1:</h3><br /><strong>Shit they're passionate about:</strong><br />"+data.p11+"<br>"+"<strong>Shit they're good at:</strong><br />"+data.p12+"<br><strong>Shit they get paid for:</strong><br />"+data.p13+"<br><strong>Shit they care for:</strong><br />"+data.p14+"<br><br>"
+                content += "<h3>Phase2:</h3><br /><strong>Passion:</strong><br />"+data.p21+"<br><strong>Mission:</strong><br />"+data.p22+"<br><strong>Vocation:</strong><br />"+data.p23+"<br><strong>Profession:</strong><br />"+data.p24+"<br><br>"      
+                content += "<h3>Phase3:</h3><br /><strong>All Options:</strong><br />"+data.p31+"<br><strong>Final Ikigai:</strong><br />"+data.p32+"<br><br>"
+                content += "<h3>ECG:</h3><br /><strong>Experience:</strong><br />"+data.e1+"<br><strong>Growth:</strong><br />"+data.e2+"<br><strong>Contribution:</strong><br />"+data.e3+"<br><strong>Top 3 ECG:</strong><br />"+data.e4+"<br>"
+                if data:
+                    return render_template("supes.html",content=content, lens=1, data=datab)
+            else:
+                return redirect(url_for("supes"))
         else:
             return redirect(url_for("logout"))
     else:
         if "supes" in session:
-            return render_template("supes.html")
+            data = Users()
+            data = Users.query.all()
+            datab = []
+            for user in data:
+                databi = [user.mail,user.p32,user.e4]
+                datab.append(databi)
+            return render_template("supes.html",lens=len(datab), data=datab)
         else:
             return(redirect(url_for("index")))
-
-
-@app.route("/rodin/all")
-def showall():
-    if "supes" in session:
-        data = Users()
-        data = Users.query.all()
-        datab = "<html><head><title>aki</title></head><body>"
-        for user in data:
-            datab = datab+user.mail+"&ensp;"+user.p32+"&ensp;"+user.e4+"<br>"
-        datab = datab+"</body></html>"
-        return datab
-    else:
-        return redirect(url_for("index"))
-
-
-
 #route choice
 @app.route("/choice")
 def choice():
